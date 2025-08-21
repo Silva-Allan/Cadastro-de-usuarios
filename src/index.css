@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  width: 100vw;
+  background: #8800ff;
+  background: linear-gradient(90deg, rgba(136, 0, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(5, 163, 0, 1) 100%);
+  font-family: "Mozilla Headline", sans-serif;
+}
