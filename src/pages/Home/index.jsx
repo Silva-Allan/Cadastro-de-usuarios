@@ -34,7 +34,7 @@ function Home() {
             <p>Idade: <span>{user.age}</span></p>
             <p>Email: <span>{user.email}</span></p>
           </div>
-          <button>
+          <button className='buttonExcluir'>
             <img className='excluir' src={Excluir} alt="excluir" />
           </button>
         </div>
