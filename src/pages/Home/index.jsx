@@ -4,18 +4,31 @@ import Excluir from '../../assets/excluir.png'
 
 function Home() {
 
-  const users = [{
-    id: 'j43b5jh4b5h345b',
-    name: 'Allan',
-    age: 18,
-    email: 'allan@gmail.com'
-  },
-  {
-    id: 'j43b45nkbk345h345b',
-    name: 'Helo',
-    age: 18,
-    email: 'helo@gmail.com'
-  }]
+  const [users, setUsers] = useState([])
+  const [form, setForm] = useState({name: '', age: '', email: ''})
+
+  useEffect(() => {
+    fetch("http://localhost:3001/users")
+      .then(res => res.json())
+      .then(data => setUsers(data));
+  }, []);
+
+  const handleCadastrar = async () => {
+    const response = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form)
+    });
+
+    const newUser = await response.json();
+    setUsers([...users, newUser]);
+    setForm({ name: '', age: '', email: '' });
+  };
+
+  const handleExcluir = async (id) => {
+    await fetch(`http://localhost:3001/users/${id}`, { method: "DELETE" });
+    setUsers(users.filter(user => user.id !== id));
+  };
 
   return (
     <div className='container'>
