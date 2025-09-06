@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './style.css'
 import Excluir from '../../assets/excluir.png'
 
 function Home() {
-
-  const [users, setUsers] = useState([])
-  const [form, setForm] = useState({name: '', age: '', email: ''})
+  const [users, setUsers] = useState([]);
+  const [form, setForm] = useState({ name: '', age: '', email: '' });
 
   useEffect(() => {
     fetch("http://localhost:3001/users")
@@ -32,12 +31,23 @@ function Home() {
 
   return (
     <div className='container'>
-      <form className='caixa'>
+      <form className='caixa' onSubmit={(e) => e.preventDefault()}>
         <h1 className='title'>Cadastro de Usuarios</h1>
-        <input placeholder='Digite o seu Nome' type="text" name="nome" />
-        <input placeholder='Digite a sua idade' type="number" name="idade" />
-        <input placeholder='Digite o seu E-mail' type="email" name="email" />
-        <button className='buttonCadastrar' type='button'>Cadastrar</button>
+        <input placeholder='Digite o seu Nome' type="text"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
+        <input placeholder='Digite a sua idade' type="number"
+          value={form.age}
+          onChange={(e) => setForm({ ...form, age: e.target.value })}
+        />
+        <input placeholder='Digite o seu E-mail' type="email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        <button className='buttonCadastrar' type='button' onClick={handleCadastrar}>
+          Cadastrar
+        </button>
       </form>
 
       {users.map((user) => (
@@ -47,15 +57,12 @@ function Home() {
             <p>Idade: <span>{user.age}</span></p>
             <p>Email: <span>{user.email}</span></p>
           </div>
-          <button className='buttonExcluir'>
+          <button className='buttonExcluir' onClick={() => handleExcluir(user.id)}>
             <img className='excluir' src={Excluir} alt="excluir" />
           </button>
         </div>
       ))}
-
-
     </div>
-
   )
 }
 
